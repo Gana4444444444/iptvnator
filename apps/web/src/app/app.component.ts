@@ -112,8 +112,9 @@ private async loadDefaultPlaylists(): Promise<void> {
             data.playlists.forEach((pl: any) => {
                 const alreadyAdded = existing.some((e: any) => e.url === pl.url);
                 if (!alreadyAdded) {
-                    this.store.dispatch(PlaylistActions.addPlaylist({
-                        playlist: { title: pl.name, url: pl.url }
+                    this.store.dispatch(PlaylistActions.handleAddingPlaylistByUrl({
+                        isTemporary: false,
+                        playlist: { title: pl.name, url: pl.url } as any
                     }));
                 }
             });
