@@ -95,13 +95,33 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.store.dispatch(PlaylistActions.loadPlaylists());
-        this.translate.setDefaultLang(this.DEFAULT_LANG);
+    this.store.dispatch(PlaylistActions.loadPlaylists());
+    this.translate.setDefaultLang(this.DEFAULT_LANG);
 
-        this.initSettings();
-        this.triggerAutoUpdatePlaylists();
+    this.initSettings();
+    this.triggerAutoUpdatePlaylists();
+    this.loadDefaultPlaylists();
+}
+
+private async loadDefaultPlaylists(): Promise<void> {
+    try {
+        const res = await fetch('/api/channels');
+        const data = await res.json();
+        if (!data.playlists?.length) return;
+        this.store.select(selectAllPlaylistsMeta).pipe(take(1)).subscribe(existing => {
+            data.playlists.forEach((pl: { name: string; url: string }) => {
+                const alreadyAdded = existing.some((e: any) => e.url === pl.url);
+                if (!alreadyAdded) {
+                    this.store.dispatch(PlaylistActions.addPlaylist({
+                        playlist: { title: pl.name, url: pl.url, id: pl.url, filename: pl.name, autoRefresh: false }
+                    }));
+                }
+            });
+        });
+    } catch (e) {
+        console.error('Failed to load default playlists', e);
     }
-
+}
     /**
      * Reads the settings object from local storage and initializes the
      * application based on them
