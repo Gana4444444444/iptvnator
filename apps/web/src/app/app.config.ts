@@ -114,10 +114,10 @@ export const appConfig: ApplicationConfig = {
         provideEffects([PlaylistEffects]),
         provideRouterStore(),
         ...(AppConfig.production ? [] : [provideStoreDevtools({ maxAge: 25 })]),
-        provideServiceWorker('ngsw-worker.js', {
-            enabled: shouldEnableServiceWorker(),
-            registrationStrategy: 'registerWhenStable:30000',
-        }),
+       provideServiceWorker('ngsw-worker.js', {
+    enabled: false,
+    registrationStrategy: 'registerWhenStable:30000',
+}),
         importProvidersFrom(
             NgxIndexedDBModule.forRoot(dbConfig),
             NgxSkeletonLoaderModule.forRoot({
