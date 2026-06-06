@@ -1,5 +1,5 @@
 {
-  "outputDirectory": "dist/apps/web/browser",
+  "outputDirectory": "dist/apps/web",
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/$1" },
     { "source": "/(.*)", "destination": "/index.html" }
