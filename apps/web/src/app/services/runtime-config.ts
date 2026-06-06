@@ -1,4 +1,4 @@
-globalThis.navigatorimport { AppConfig } from '../../environments/environment';
+import { AppConfig } from '../../environments/environment';
 
 export interface IptvnatorRuntimeConfig {
     readonly BACKEND_URL?: string;
