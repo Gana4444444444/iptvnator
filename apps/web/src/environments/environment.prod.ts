@@ -5,3 +5,4 @@ export const AppConfig = {
     environment: 'PROD',
     version: packageJson.version,
     BACKEND_URL: 'https://iptvnator-backend-azure.vercel.app',
+};
