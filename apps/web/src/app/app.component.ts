@@ -109,11 +109,11 @@ private async loadDefaultPlaylists(): Promise<void> {
         const data = await res.json();
         if (!data.playlists?.length) return;
         this.store.select(selectAllPlaylistsMeta).pipe(take(1)).subscribe(existing => {
-            data.playlists.forEach((pl: { name: string; url: string }) => {
+            data.playlists.forEach((pl: any) => {
                 const alreadyAdded = existing.some((e: any) => e.url === pl.url);
                 if (!alreadyAdded) {
                     this.store.dispatch(PlaylistActions.addPlaylist({
-                        playlist: { title: pl.name, url: pl.url, id: pl.url, filename: pl.name, autoRefresh: false }
+                        playlist: { title: pl.name, url: pl.url }
                     }));
                 }
             });
