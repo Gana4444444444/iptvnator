@@ -1,4 +1,4 @@
-import { AppConfig } from '../../environments/environment';
+globalThis.navigatorimport { AppConfig } from '../../environments/environment';
 
 export interface IptvnatorRuntimeConfig {
     readonly BACKEND_URL?: string;
@@ -23,5 +23,5 @@ export function shouldEnableServiceWorker(
     production = AppConfig.production,
     navigatorRef: Navigator | undefined = globalThis.navigator
 ): boolean {
-    return production && !!navigatorRef && 'serviceWorker' in navigatorRef;
+    return false;
 }
